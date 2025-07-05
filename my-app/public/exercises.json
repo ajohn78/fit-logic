@@ -1,0 +1,94 @@
+{
+  "_meta": { 
+    "author": "Ezekiel Turnbough",
+    "created": "2025-07-03",
+    "lastEdited": ["2025-07-03", "10:25 AM", "By: Ezekiel Turnbough"],
+    "note": "Exercises organized by body part"
+  },
+  "Chest": [
+    {
+      "Name": "Push-Up",
+      "Type": "Push",
+      "MusclesWorked": ["Chest", "Shoulders", "Triceps"],
+      "EquipmentNeeded": ["None"]
+    },
+    {
+      "Name": "Bench Press",
+      "Type": "Push",
+      "MusclesWorked": ["Chest", "Shoulders", "Triceps"],
+      "EquipmentNeeded": ["Bench", "Barbell", "Dumbbells", "Weights"]
+    }
+  ],
+  "Back": [
+    {
+      "Name": "Lat Pulldown",
+      "Type": "Pull",
+      "MusclesWorked": ["Lats", "Biceps", "Shoulders"],
+      "EquipmentNeeded": ["Lat Pulldown Machine"]
+    }
+  ],
+  "Shoulders":[
+    {
+      "Name": "Shoulder Press",
+      "Type": "Push",
+      "MusclesWorked": ["Deltoids", "Triceps", "Traps"],
+      "EquipmentNeeded": ["Barbell", "Weights", "Dumbbells", "Shoulder Press Machine"]
+    }
+  ],
+  "Triceps":[
+    {
+      "Name": "Tricep Extension",
+      "Type": "Push",
+      "MusclesWorked": ["Triceps", "Deltoids"],
+      "EquipmentNeeded": ["Dumbbells"]
+    }
+  ],
+  "Biceps":[
+    {
+      "Name": "Bicep Curls",
+      "Type": "Pull",
+      "MusclesWorked": ["Biceps"],
+      "EquipmentNeeded": ["Dumbbells", "Barbell", "Weights"]
+    }
+  ],
+  "Abs":[
+    {
+      "Name": "Planks",
+      "Type": "Push",
+      "MusclesWorked": ["Core", "Abs"],
+      "EquipmentNeeded": ["None"]
+    }
+  ],
+  "Quads":[
+    {
+      "Name": "Leg Extension",
+      "Type": "Push",
+      "MusclesWorked": ["Quads"],
+      "EquipmentNeeded": ["Leg Extension Machine"]
+    }
+  ],
+  "Hamstrings":[
+    {
+      "Name": "Hamstring Curls",
+      "Type": "Pull",
+      "MusclesWorked": ["Hamstrings"],
+      "EquipmentNeeded": ["Hamstring Curl Machine"]
+    }
+  ],
+  "Glutes":[
+    {
+      "Name": "Squats",
+      "Type": "Push",
+      "MusclesWorked": ["Glutes", "Quads", "Hamstrings"],
+      "EquipmentNeeded": ["None", "Barbell", "Weights", "Dumbbells"]
+    }
+  ],
+  "Calves":[
+    {
+      "Name": "Calf Raises",
+      "Type": "Push",
+      "MusclesWorked": ["Calves"],
+      "EquipmentNeeded": ["None", "Barbell", "Weights", "Dumbbells", "Kettlebells"]
+    }
+  ]
+}
