@@ -2,8 +2,8 @@
   "_meta": { 
     "author": "Ezekiel Turnbough",
     "created": "2025-07-03",
-    "lastEdited": ["2025-07-03", "10:25 AM", "By: Ezekiel Turnbough"],
-    "note": "Exercises organized by body part"
+    "lastEdited": ["2025-07-07", "11:26 AM", "By: Ezekiel Turnbough"],
+    "note": "Changed the MusclesWorked list to work better with filtering"
   },
   "Chest": [
     {
@@ -23,7 +23,7 @@
     {
       "Name": "Lat Pulldown",
       "Type": "Pull",
-      "MusclesWorked": ["Lats", "Biceps", "Shoulders"],
+      "MusclesWorked": ["Back", "Lats", "Biceps", "Shoulders"],
       "EquipmentNeeded": ["Lat Pulldown Machine"]
     }
   ],
@@ -31,7 +31,7 @@
     {
       "Name": "Shoulder Press",
       "Type": "Push",
-      "MusclesWorked": ["Deltoids", "Triceps", "Traps"],
+      "MusclesWorked": ["Shoulders", "Deltoids", "Triceps", "Traps"],
       "EquipmentNeeded": ["Barbell", "Weights", "Dumbbells", "Shoulder Press Machine"]
     }
   ],
@@ -55,7 +55,7 @@
     {
       "Name": "Planks",
       "Type": "Push",
-      "MusclesWorked": ["Core", "Abs"],
+      "MusclesWorked": ["Abs", "Core"],
       "EquipmentNeeded": ["None"]
     }
   ],
