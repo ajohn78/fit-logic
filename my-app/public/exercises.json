@@ -1,22 +1,22 @@
 {
   "_meta": { 
     "author": "Ezekiel Turnbough",
-    "created": "2025-07-03",
-    "lastEdited": ["2025-07-07", "11:26 AM", "By: Ezekiel Turnbough"],
-    "note": "Changed the MusclesWorked list to work better with filtering"
+    "created": "07-03-2025",
+    "lastEdited": ["07-23-2025", "11:08 AM", "By: Ezekiel Turnbough"],
+    "note": "Added more exercises and EquipmentOptions"
   },
   "Chest": [
     {
       "Name": "Push-Up",
       "Type": "Push",
       "MusclesWorked": ["Chest", "Shoulders", "Triceps"],
-      "EquipmentNeeded": ["None"]
+      "EquipmentOptions": ["None"]
     },
     {
       "Name": "Bench Press",
       "Type": "Push",
       "MusclesWorked": ["Chest", "Shoulders", "Triceps"],
-      "EquipmentNeeded": ["Bench", "Barbell", "Dumbbells", "Weights"]
+      "EquipmentOptions": ["Bench", "Barbell", "Dumbbells", "Weights"]
     }
   ],
   "Back": [
@@ -24,7 +24,13 @@
       "Name": "Lat Pulldown",
       "Type": "Pull",
       "MusclesWorked": ["Back", "Lats", "Biceps", "Shoulders"],
-      "EquipmentNeeded": ["Lat Pulldown Machine"]
+      "EquipmentOptions": ["Cable Machine"]
+    },
+    {
+      "Name": "Row",
+      "Type": "Pull",
+      "MusclesWorked": ["Back", "Lats", "Shoulders"],
+      "EquipmentOptions": ["Dumbbells", "Weights", "Barbell", "Cable Machine"]
     }
   ],
   "Shoulders":[
@@ -32,7 +38,13 @@
       "Name": "Shoulder Press",
       "Type": "Push",
       "MusclesWorked": ["Shoulders", "Deltoids", "Triceps", "Traps"],
-      "EquipmentNeeded": ["Barbell", "Weights", "Dumbbells", "Shoulder Press Machine"]
+      "EquipmentOptions": ["Barbell", "Weights", "Dumbbells", "Shoulder Press Machine"]
+    }, 
+    {
+      "Name": "Upright Row",
+      "Type": "Pull",
+      "MusclesWorked": ["Shoulders", "Deltoids", "Back", "Biceps"],
+      "EquipmentOptions": ["Dumbbells", "Weights", "Barbell", "Cable Machine"]
     }
   ],
   "Triceps":[
@@ -40,7 +52,13 @@
       "Name": "Tricep Extension",
       "Type": "Push",
       "MusclesWorked": ["Triceps", "Deltoids"],
-      "EquipmentNeeded": ["Dumbbells"]
+      "EquipmentOptions": ["Dumbbells"]
+    }, 
+    {
+      "Name": "Skull Crushers",
+      "Type": "Push",
+      "MusclesWorked": ["Triceps","Shoulders","Deltoids"],
+      "EquipmentOptions": ["Dumbbells", "Barbell", "Bench", "Weights", "Cable Machine"]
     }
   ],
   "Biceps":[
@@ -48,7 +66,7 @@
       "Name": "Bicep Curls",
       "Type": "Pull",
       "MusclesWorked": ["Biceps"],
-      "EquipmentNeeded": ["Dumbbells", "Barbell", "Weights"]
+      "EquipmentOptions": ["Dumbbells", "Barbell", "Weights"]
     }
   ],
   "Abs":[
@@ -56,7 +74,19 @@
       "Name": "Planks",
       "Type": "Push",
       "MusclesWorked": ["Abs", "Core"],
-      "EquipmentNeeded": ["None"]
+      "EquipmentOptions": ["None"]
+    },
+    {
+      "Name": "Russian Twists",
+      "Type": "Neither",
+      "MusclesWorked": ["Abs", "Obliques", "Hip Flexors"],
+      "EquipmentOptions": ["None", "Dumbbells", "Medicine Ball"]
+    },
+    {
+      "Name": "Crunches",
+      "Type": "Pull",
+      "MusclesWorked": ["Abs", "Core", "Obliques"],
+      "EquipmentOptions": ["None", "Dumbbells", "Medicine Ball", "Resistance Bands"]
     }
   ],
   "Quads":[
@@ -64,7 +94,7 @@
       "Name": "Leg Extension",
       "Type": "Push",
       "MusclesWorked": ["Quads"],
-      "EquipmentNeeded": ["Leg Extension Machine"]
+      "EquipmentOptions": ["Leg Extension Machine"]
     }
   ],
   "Hamstrings":[
@@ -72,7 +102,7 @@
       "Name": "Hamstring Curls",
       "Type": "Pull",
       "MusclesWorked": ["Hamstrings"],
-      "EquipmentNeeded": ["Hamstring Curl Machine"]
+      "EquipmentOptions": ["Hamstring Curl Machine"]
     }
   ],
   "Glutes":[
@@ -80,7 +110,7 @@
       "Name": "Squats",
       "Type": "Push",
       "MusclesWorked": ["Glutes", "Quads", "Hamstrings"],
-      "EquipmentNeeded": ["None", "Barbell", "Weights", "Dumbbells"]
+      "EquipmentOptions": ["None", "Barbell", "Weights", "Dumbbells"]
     }
   ],
   "Calves":[
@@ -88,7 +118,7 @@
       "Name": "Calf Raises",
       "Type": "Push",
       "MusclesWorked": ["Calves"],
-      "EquipmentNeeded": ["None", "Barbell", "Weights", "Dumbbells", "Kettlebells"]
+      "EquipmentOptions": ["None", "Barbell", "Weights", "Dumbbells", "Kettlebells"]
     }
   ]
 }
