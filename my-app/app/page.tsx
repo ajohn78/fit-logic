@@ -1,10 +1,7 @@
 'use client';
 
 
-// last updated 07/29/2025 at 4:05pm by Ezekiel Turnbough
-
-
-
+// last updated 09/21/2026 at 4:05pm by Ezekiel Turnbough
 
 import {useEffect, useState} from 'react';
 import './style.css'
@@ -28,7 +25,6 @@ type ExerciseData =
   [muscleGroup: string]: Exercise[] | object;
 };
 
-
 type CardioExercise =
 {
   Name: string;
@@ -36,7 +32,6 @@ type CardioExercise =
   MusclesWorked: string[];
   EquipmentOptions: string[];
 };
-
 
 //*
 // Fetches the data from the exercises json file
@@ -50,54 +45,23 @@ export default function ExcerciseClass()
   // Creates a method for setting the exercises
   const [allExercisesList, setExercise] = useState<Exercise[]>([]);
 
-
-
-
   // Stores a list of exercises that match the current filter
   const [filteredExerciseList, setExerciseFilter] = useState<Exercise[]>([]);
-
-
-
-
   // Keeps track of the currently selected muscle group
   const [currentMuscles, setCurrentMuscles] =  useState<string[]>([]);
-
-
-
-
   // Keeps track of the currentlty seclected required equipment
   const [currentEquipment, setCurrentEquipment] =  useState<string[]>([]);
-
-
   // Keeps track if the currently displayed exercises are cardio based or strength training
-  const [exerciseFocus, setExerciseFocus] = useState(false);
-
-
+  const [exerciseFocus, setCardioFocus] = useState(false);
   // Allows for errors to be caught
   const [error, setError] = useState<string | null>(null);
- 
    const [allCardioList, setCardioExercise] = useState<CardioExercise[]>([]);
-
-
-
-
   // Stores a list of exercises that match the current filter
   const [filteredCardioList, setCardioFilter] = useState<CardioExercise[]>([]);
-
-
     // Keeps track of the currently selected muscle group
   const [currentCardioMuscles, setCurrentCardioMuscles] =  useState<string[]>([]);
-
-
-
-
   // Keeps track of the currentlty seclected required equipment
   const [currentCardioEquipment, setCurrentCardioEquipment] =  useState<string[]>([]);
-
-
-
-
-
 
   useEffect(()=> {
   // Fetch the exercise json file
@@ -132,10 +96,6 @@ export default function ExcerciseClass()
         // Titles the Page
         document.title = 'Fit-Logic';
       })
-
-
-
-
       // Catches errors found while loading the JSON file and the exercise data
     .catch((error_found) =>{
         console.error('Could not load JSON file: ', error_found);
@@ -157,8 +117,6 @@ useEffect(()=> {
           return response.json();
       })
 
-
-     
     .then((json: ExerciseData) => {
       // Initializes an empty list for the exercises to be stored
       const cardioList: CardioExercise[] = []
@@ -177,19 +135,12 @@ useEffect(()=> {
         // Titles the Page
         document.title = 'Fit-Logic';
       })
-
-
-
-
       // Catches errors found while loading the JSON file and the exercise data
     .catch((error_found) =>{
         console.error('Could not load JSON file: ', error_found);
         setError('ERROR: Could not load the Cardio data.');
      })  
 }, []);
-
-
-
 
   /**
    * Filters the list of exercises based on the selected muscle groups and equipment required
@@ -198,8 +149,6 @@ useEffect(()=> {
   useEffect(() => {
     // Starts with the full list of exercises
     let filtered = allExercisesList;
-
-
     // Checks the length of the list of the current muscles being displayed
     if (currentMuscles.length > 0) {
       // Keeps the exercises that match the selected muscle group being worked
@@ -207,8 +156,6 @@ useEffect(()=> {
         currentMuscles.some((m) => ex.MusclesWorked.includes(m))
       );
     }
-
-
     // Checks the length of the list of the current equipment needed being displayed
     if (currentEquipment.length > 0) {
       // Keeps the exercises that match the selected equipment needed for this exercise
@@ -216,20 +163,13 @@ useEffect(()=> {
         currentEquipment.some((equ) =>ex.EquipmentOptions.includes(equ))
       );
     }
-
-
     // Updates and saves the filtered list of exercises for display
     setExerciseFilter(filtered);
   }, [currentMuscles, currentEquipment, allExercisesList]);
 
-
-
-
   useEffect(() => {
     // Starts with the full list of exercises
     let filtered = allCardioList;
-
-
     // Checks the length of the list of the current muscles being displayed
     // Keeps the exercises that match the selected muscle group being worked
     if (currentCardioMuscles.length > 0)
@@ -238,8 +178,6 @@ useEffect(()=> {
           currentCardioMuscles.some((m) => ex.MusclesWorked.includes(m))
         );
       }
-
-
     // Checks the length of the list of the current equipment needed being displayed
       // Keeps the exercises that match the selected equipment needed for this exercise
       if (currentCardioEquipment.length > 0)
@@ -248,54 +186,40 @@ useEffect(()=> {
           currentCardioEquipment.some((equ) =>ex.EquipmentOptions.includes(equ))
         );
     }
-
-
     // Updates and saves the filtered list of exercises for display
     setCardioFilter(filtered);
   }, [currentCardioMuscles, currentCardioEquipment, allCardioList]);
-
-
-
-
-
 
   // List of all muscle targets to be used for buttons
   const muscleTargets = ['Chest', 'Back', 'Shoulders', 'Triceps', 'Biceps', 'Abs', 'Quads', 'Hamstrings', 'Glutes', 'Calves'];
   // List of all possible equipment options to be used for buttons
   const equipmentOptions = ['None', 'Dumbbells', 'Barbell', 'Bench', 'Cable Machine', 'Weights', 'Medicine Ball', 'Resistance Bands'];
-
-
   const cardioTargets = ["Whole Body", "Quads", "Hamstrings", "Calves", "Glutes","Hip Flexors", "Shoulders", "Chest", "Arms", "Back", "Core"];
-
-
   const cardioEquipment = ["Nothing", "Treadmill", "Weights", "Bicycle", "Stationary Bike", "Pool", "Jumprope"];
 
 
-
-
-  return(
+return(
     // Main Exercise Page Header and Title
     /// To center everything type className = "containter" after <main
     <main style={{ backgroundColor: '#f0f8ff', color: '#222' }}>
-    <header className='exerciseName'>
-      <h1>Exercises</h1>
-    </header>
-    <div style={{ color: 'Black', fontSize: '25px' }}>
-      Exercise Type: {exerciseFocus ? 'Cardio' : 'Strength Training'}
-
-
-      <button className='button'
-        onClick={() => setExerciseFocus(prev => !prev)}
-        style={{
-              backgroundColor: !exerciseFocus ? '#93B7BE' : 'white',
-              border: !exerciseFocus ? '3px solid white' : '3px solid black'
-              }}
-      >
-        Switch to {exerciseFocus ? 'Strength Training' : 'Cardio'}
-      </button>
-
-
+    <div className='TopBar'>
+      <div className='Title'> Fit Logic</div>
+      <nav>
+        <h1>Home</h1>
+        <h2>Exercises</h2>
+        <h1>Calculator</h1>
+        <h1>Placeholder</h1>
+        <h1>Placeholder</h1>
+      </nav>
     </div>
+
+    <div className='dropDown'> Exercise Type
+        <div className='content'>
+          <a onClick={() => setCardioFocus(false)}>Strength Exercises</a>
+          <a onClick={() => setCardioFocus(true)}>Cardio Exercises</a>
+        </div>
+    </div>
+
     {/* Buttons and display for the targeted muscle groups */}
    
       {!exerciseFocus &&
