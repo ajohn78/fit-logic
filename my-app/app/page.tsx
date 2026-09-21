@@ -7,6 +7,7 @@ import {useEffect, useState} from 'react';
 import './style.css'
 
 
+
 // Definition of the Exercise object
 type Exercise =
 {
