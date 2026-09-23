@@ -1,12 +1,8 @@
 'use client';
-
-
 // last updated 09/21/2026 at 2:59pm by Ezekiel Turnbough
 
 import {useEffect, useState} from 'react';
 import './style.css'
-
-
 
 // Definition of the Exercise object
 type Exercise =
@@ -16,7 +12,6 @@ type Exercise =
   MusclesWorked: string[];
   EquipmentOptions: string[];
 };
-
 
 // Format of the Exercises json file
 type ExerciseData =
@@ -45,26 +40,31 @@ export default function ExcerciseClass()
   // Initializes a variable that represents a list of all exercises
   // Creates a method for setting the exercises
   const [allExercisesList, setExercise] = useState<Exercise[]>([]);
-
-  // Stores a list of exercises that match the current filter
-  const [filteredExerciseList, setExerciseFilter] = useState<Exercise[]>([]);
   // Keeps track of the currently selected muscle group
   const [currentMuscles, setCurrentMuscles] =  useState<string[]>([]);
   // Keeps track of the currentlty seclected required equipment
   const [currentEquipment, setCurrentEquipment] =  useState<string[]>([]);
-  // Keeps track if the currently displayed exercises are cardio based or strength training
-  const [exerciseFocus, setCardioFocus] = useState(false);
-  // Allows for errors to be caught
-  const [error, setError] = useState<string | null>(null);
-   const [allCardioList, setCardioExercise] = useState<CardioExercise[]>([]);
-  // Stores a list of exercises that match the current filter
-  const [filteredCardioList, setCardioFilter] = useState<CardioExercise[]>([]);
+
+  const [allCardioList, setCardioExercise] = useState<CardioExercise[]>([]);
     // Keeps track of the currently selected muscle group
   const [currentCardioMuscles, setCurrentCardioMuscles] =  useState<string[]>([]);
   // Keeps track of the currentlty seclected required equipment
   const [currentCardioEquipment, setCurrentCardioEquipment] =  useState<string[]>([]);
 
+  // Keeps track if the currently displayed exercises are cardio based or strength training
+  const [cardioFocus, setCardioFocus] = useState(false);
+  // Allows for errors to be caught
+  const [error, setError] = useState<string | null>(null);
+
+
+  // Selects the chosen option for filtering
+  const chooseOption = (item :string, chosenItems: string[], setChosenItems: React.Dispatch<React.SetStateAction<string[]>>) =>
+  {
+    setChosenItems(chosenItems.includes(item) ? chosenItems.filter((m) => m != item) : [...chosenItems, item]);
+  };
+
   useEffect(()=> {
+    document.title = 'Fit-Logic'
   // Fetch the exercise json file
   fetch("./exercises.json")
     .then(response =>
@@ -76,29 +76,18 @@ export default function ExcerciseClass()
           }
           return response.json();
       })
-
-
-     
-    .then((json: ExerciseData) => {
-      // Initializes an empty list for the exercises to be stored
-      const exerciseList: Exercise[] = []
-      // Adds the exercises to the exercise list from the json file using the muscle group as the key
-      for (const muscleGroup in json)
-        {
-          if (muscleGroup !== '_meta')
-          {
-            exerciseList.push(...(json[muscleGroup] as Exercise[]))
-          }
+      .then((json: ExerciseData) => {
+        const exerciseList: Exercise[] = [];
+        for (const muscleGroup in json){
+          if (muscleGroup !== '_meta') 
+            {
+              exerciseList.push(...(json[muscleGroup] as Exercise[]));
+            }
         }
-        // Stores the all the exercises for a base copy
         setExercise(exerciseList);
-        // Copies all the exercises into a different list, so that they can be filtered
-        setExerciseFilter(exerciseList);
-        // Titles the Page
-        document.title = 'Fit-Logic';
       })
       // Catches errors found while loading the JSON file and the exercise data
-    .catch((error_found) =>{
+      .catch((error_found) =>{
         console.error('Could not load JSON file: ', error_found);
         setError('ERROR: Could not load the Muscle Training data.');
      })  
@@ -106,8 +95,9 @@ export default function ExcerciseClass()
 
 
 useEffect(()=> {
-  // Fetch the exercise json file
+  // Fetch the cardio exercise json file
   fetch("./cardio.json")
+
     .then(response =>
       {
         // Checks if the requested json file was found
@@ -117,24 +107,15 @@ useEffect(()=> {
           }
           return response.json();
       })
-
-    .then((json: ExerciseData) => {
-      // Initializes an empty list for the exercises to be stored
-      const cardioList: CardioExercise[] = []
-      // Adds the exercises to the exercise list from the json file using the muscle group as the key
-      for (const muscleGroup in json)
-        {
-          if (muscleGroup !== '_meta')
-          {
-            cardioList.push(...(json[muscleGroup] as CardioExercise[]))
-          }
+      .then((json: ExerciseData) => {
+        const cardioList: CardioExercise[] = [];
+        for (const muscleGroup in json){
+          if (muscleGroup !== '_meta') 
+            {
+              cardioList.push(...(json[muscleGroup] as CardioExercise[]));
+            }
         }
-        // Stores the all the exercises for a base copy
         setCardioExercise(cardioList);
-        // Copies all the exercises into a different list, so that they can be filtered
-        setCardioFilter(cardioList);
-        // Titles the Page
-        document.title = 'Fit-Logic';
       })
       // Catches errors found while loading the JSON file and the exercise data
     .catch((error_found) =>{
@@ -147,49 +128,22 @@ useEffect(()=> {
    * Filters the list of exercises based on the selected muscle groups and equipment required
    * Updates whenever the selected muscles, equipment required, or full exercise list changes
    *  */
-  useEffect(() => {
-    // Starts with the full list of exercises
-    let filtered = allExercisesList;
-    // Checks the length of the list of the current muscles being displayed
-    if (currentMuscles.length > 0) {
-      // Keeps the exercises that match the selected muscle group being worked
-      filtered = filtered.filter((ex) =>
-        currentMuscles.some((m) => ex.MusclesWorked.includes(m))
-      );
-    }
-    // Checks the length of the list of the current equipment needed being displayed
-    if (currentEquipment.length > 0) {
-      // Keeps the exercises that match the selected equipment needed for this exercise
-      filtered = filtered.filter((ex) =>
-        currentEquipment.some((equ) =>ex.EquipmentOptions.includes(equ))
-      );
-    }
-    // Updates and saves the filtered list of exercises for display
-    setExerciseFilter(filtered);
-  }, [currentMuscles, currentEquipment, allExercisesList]);
+  const filteredStrengthExerciseList = allExercisesList.filter((exercise) => {
+    const muscleFound = currentMuscles.length === 0 || currentMuscles.some((muscle) => 
+      exercise.MusclesWorked.includes(muscle));
+    const equipmentFound = currentEquipment.length === 0 || currentEquipment.some((equip) =>
+    exercise.EquipmentOptions.includes(equip))
+    return muscleFound && equipmentFound;
+  })
 
-  useEffect(() => {
-    // Starts with the full list of exercises
-    let filtered = allCardioList;
-    // Checks the length of the list of the current muscles being displayed
-    // Keeps the exercises that match the selected muscle group being worked
-    if (currentCardioMuscles.length > 0)
-      {
-        filtered = filtered.filter((ex) =>
-          currentCardioMuscles.some((m) => ex.MusclesWorked.includes(m))
-        );
-      }
-    // Checks the length of the list of the current equipment needed being displayed
-      // Keeps the exercises that match the selected equipment needed for this exercise
-      if (currentCardioEquipment.length > 0)
-      {
-        filtered = filtered.filter((ex) =>
-          currentCardioEquipment.some((equ) =>ex.EquipmentOptions.includes(equ))
-        );
-    }
-    // Updates and saves the filtered list of exercises for display
-    setCardioFilter(filtered);
-  }, [currentCardioMuscles, currentCardioEquipment, allCardioList]);
+  const filteredCardioExerciseList = allCardioList.filter((exercise) => {
+    const muscleFound = currentCardioMuscles.length === 0 || currentCardioMuscles.some((muscle) => 
+      exercise.MusclesWorked.includes(muscle));
+    const equipmentFound = currentCardioEquipment.length === 0 || currentCardioEquipment.some((equip) =>
+    exercise.EquipmentOptions.includes(equip))
+
+    return muscleFound && equipmentFound;
+  })
 
   // List of all muscle targets to be used for buttons
   const muscleTargets = ['Chest', 'Back', 'Shoulders', 'Triceps', 'Biceps', 'Abs', 'Quads', 'Hamstrings', 'Glutes', 'Calves'];
@@ -223,56 +177,52 @@ return(
 
     {/* Buttons and display for the targeted muscle groups */}
    
-      {!exerciseFocus &&
+      {!cardioFocus &&
       (
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '20px' }}>
-            <h1 className="name" style={{ color: 'Black', fontSize: '30px' }}>Muscles Targeted:</h1>
-            {muscleTargets.map((muscle) =>(
-              <button className='button'
-                key = {muscle}
-                // When the button is clicked update the exercise filter to include or exclude the selected muscle group
-                onClick={() =>
-                  setCurrentMuscles((prev_selected) =>
-                    prev_selected.includes(muscle) ? prev_selected.filter((m) => m != muscle) : [...prev_selected, muscle])}
-                style={{
-                  backgroundColor: currentMuscles.includes(muscle) ? '#93B7BE' : 'white',
-                  color: currentMuscles.includes(muscle) ? 'white' : 'black',
-                }}
-                >
-                  {muscle}
-                </button>
-            ))}
+        <div className='dropDown'>Muscles Targeted
+          <div className='content'>
+              {muscleTargets.map((muscle) =>(
+                <a key = {muscle}
+                  // When the button is clicked update the exercise filter to include or exclude the selected muscle group
+                  onClick={() => chooseOption(muscle, currentMuscles, setCurrentMuscles)}
+                  style={{
+                    backgroundColor: currentMuscles.includes(muscle) ? '#93B7BE' : 'white',
+                    color: currentMuscles.includes(muscle) ? 'white' : 'black',
+                  }}
+                  >
+                    {muscle}
+                  </a>
+              ))}
+              </div>
           </div>
           )}          
         {/* Buttons and display for the possible equipment options */}
-        {!exerciseFocus &&
+        {!cardioFocus &&
         (    
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '20px' }}>
-            <h1 className="name" style={{ color: 'Black', fontSize: '30px' }}>Equipment Options:</h1>
+          <div className='dropDown'>Equipment Options:
+            <div className='content'>
             {equipmentOptions.map((equipm) =>(
-              <button className='button'
-                key = {equipm}
+              <a key = {equipm}
                 // When the button is clicked update the exercise filter to include or exclude the selected muscle group
-                onClick={() =>
-                  setCurrentEquipment((prev_selected) =>
-                    prev_selected.includes(equipm) ? prev_selected.filter((equ) => equ != equipm) : [...prev_selected, equipm])}
+                onClick={() => chooseOption(equipm, currentEquipment, setCurrentEquipment)}
                 style={{
                   backgroundColor: currentEquipment.includes(equipm) ? '#93B7BE' : 'white',
                   color: currentEquipment.includes(equipm) ? 'white' : 'black',
                 }}
                 >
                   {equipm}
-                </button>
+                </a>
             ))}
+            </div>
           </div>
       )}
      
       {/* Display Exercises */}
       {error && <h2 style={{ color: 'red' }}>{error}</h2>}
-      {filteredExerciseList.length === 0 && !error && <h2>None of the exercises match these filters.</h2>}
-      {!exerciseFocus &&(
+      {filteredStrengthExerciseList.length === 0 && !error && <h2>None of the exercises match these filters.</h2>}
+      {!cardioFocus &&(
       <div style={{display: 'flex', flexWrap: 'wrap', gap: '50px', justifyContent: 'flex-start'}}>
-        {filteredExerciseList.map((exercise, index) => (
+        {filteredStrengthExerciseList.map((exercise, index) => (
           <div key = {index} className='exerciseCard'>
                 <h2 className="exerciseName">{exercise.Name}</h2>
                 <h3 className="exerciseType">Push or Pull: {exercise.Type}</h3>
@@ -284,61 +234,53 @@ return(
         </div>
       )}
 
-
-
-
-
-
-      {exerciseFocus &&
+      {cardioFocus &&
       (
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '20px' }}>
-            <h1 className="name" style={{ color: 'Black', fontSize: '30px' }}>Muscles Targeted:</h1>
-            {cardioTargets.map((muscle) =>(
-              <button className='button'
-                key = {muscle}
-                // When the button is clicked update the exercise filter to include or exclude the selected muscle group
-                onClick={() =>
-                  setCurrentCardioMuscles((prev_selected) =>
-                    prev_selected.includes(muscle) ? prev_selected.filter((m) => m != muscle) : [...prev_selected, muscle])}
-                style={{
-                  backgroundColor: currentCardioMuscles.includes(muscle) ? '#93B7BE' : 'white',
-                  color: currentCardioMuscles.includes(muscle) ? 'white' : 'black',
-                }}
-                >
-                  {muscle}
-                </button>
+        <div className='dropDown'>Muscles Targeted:
+            <div className='content'>
+              {cardioTargets.map((muscle) =>(
+                <a 
+                  key = {muscle}
+                  // When the button is clicked update the exercise filter to include or exclude the selected muscle group
+                  onClick={() => chooseOption(muscle, currentCardioMuscles, setCurrentCardioMuscles)}
+                  style={{
+                    backgroundColor: currentCardioMuscles.includes(muscle) ? '#93B7BE' : 'white',
+                    color: currentCardioMuscles.includes(muscle) ? 'white' : 'black',
+                  }}
+                  >
+                    {muscle}
+                  </a>
             ))}
+            </div>
           </div>
           )}          
         {/* Buttons and display for the possible equipment options */}
-        {exerciseFocus &&
+        {cardioFocus &&
         (    
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '20px' }}>
-            <h1 className="name" style={{ color: 'Black', fontSize: '30px' }}>Equipment Options:</h1>
-            {cardioEquipment.map((equipm) =>(
-              <button className='button'
-                key = {equipm}
-                // When the button is clicked update the exercise filter to include or exclude the selected muscle group
-                onClick={() =>
-                  setCurrentCardioEquipment((prev_selected) =>
-                    prev_selected.includes(equipm) ? prev_selected.filter((equ) => equ != equipm) : [...prev_selected, equipm])}
-                style={{
-                  backgroundColor: currentCardioEquipment.includes(equipm) ? '#93B7BE' : 'white',
-                  color: currentCardioEquipment.includes(equipm) ? 'white' : 'black',
-                }}
-                >
-                  {equipm}
-                </button>
-            ))}
+          <div className='dropDown'>Equipment Options:
+            <div className='content'>
+              {cardioEquipment.map((equipm) =>(
+                <a
+                  key = {equipm}
+                  // When the button is clicked update the exercise filter to include or exclude the selected muscle group
+                  onClick={() => chooseOption(equipm, currentCardioEquipment, setCurrentCardioEquipment)}
+                  style={{
+                    backgroundColor: currentCardioEquipment.includes(equipm) ? '#93B7BE' : 'white',
+                    color: currentCardioEquipment.includes(equipm) ? 'white' : 'black',}}
+                  >
+                    {equipm}
+                  </a>
+              ))}
+            </div>
           </div>
       )}
      
       {/* Display Exercises */}
       {error && <h2 style={{ color: 'red' }}>{error}</h2>}
-      {filteredCardioList.length === 0 && !error && <h2>None of the exercises match these filters.</h2>}
-      {exerciseFocus &&(
+      {filteredCardioExerciseList.length === 0 && !error && <h2>None of the exercises match these filters.</h2>}
+      {cardioFocus &&(
       <div style={{display: 'flex', flexWrap: 'wrap', gap: '50px', justifyContent: 'flex-start'}}>
-        {filteredCardioList.map((exercise, index) => (
+        {filteredCardioExerciseList.map((exercise, index) => (
           <div key = {index} className='exerciseCard'>
                 <h2 className="exerciseName">{exercise.Name}</h2>
                 <h3 className="exerciseType">Intensity: {exercise.Intensity}</h3>

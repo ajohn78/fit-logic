@@ -179,18 +179,28 @@ nav h2
 {
   color:#93B7BE;
 }
+
+.dropDown a:active
+{
+   background-color:#93B7BE;
+   color: white;
+}
 .dropDown .content
 {
   display: none;
   position: absolute;
   min-width: 40px;
   box-shadow: 2px 2px 5px black
+  
 }
 
 .dropDown:hover .content
 {
-  
-  
   display: block;
 }
 
+.dropDown li
+{
+  display: flex;
+  flex-direction: column;
+}
