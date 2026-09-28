@@ -1,6 +1,8 @@
 import "./style.css"
 import Link from 'next/link';
 
+// last updated 09/28/2026 at 3:27pm by Ezekiel Turnbough
+
 
 export default function HomeScreen(){
     return(
