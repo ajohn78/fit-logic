@@ -1,0 +1,40 @@
+{
+  "_meta": {
+    "author": "Ezekiel Turnbough",
+    "created": "07-29-2025",
+    "lastEdited": ["07-29-2025", "3:19 pm", "By: Ezekiel Turnbough"],
+    "note": "Created Cardio json File"
+  },
+  "Cardio": [
+    {
+      "Name": "Walking",
+        "Intensity": "Low",
+        "MusclesWorked": ["Quads", "Hamstrings", "Calves", "Glutes"],
+        "EquipmentOptions": ["Nothing", "Treadmill", "Weights"]
+    },
+    {
+      "Name": "Running",
+      "Intensity": "Mid to High",
+      "MusclesWorked": ["Whole Body", "Quads", "Hamstrings", "Calves", "Glutes","Hip Flexors", "Shoulders", "Chest", "Arms", "Back", "Core"],
+      "EquipmentOptions": ["Nothing", "Treadmill"]
+    },
+    {
+        "Name": "Biking",
+        "Intensity": "Low to High",
+        "MusclesWorked": ["Quads", "Hamstrings", "Calves", "Glutes", "Hip Flexors"],
+        "EquipmentOptions": ["Bicycle", "Stationary Bike"]
+    },
+    {
+      "Name": "Swimming",
+      "Intensity": "Mid to High",
+      "MusclesWorked": ["Whole Body", "Quads", "Hamstrings", "Calves", "Glutes","Hip Flexors", "Arms", "Shoulders", "Chest", "Back", "Core"],
+      "EquipmentOptions": ["Pool"]
+    },
+    {
+        "Name": "Jumping Rope",
+        "Intensity": "High",
+        "MusclesWorked": ["Whole Body", "Quads", "Hamstrings", "Calves", "Glutes","Hip Flexors", "Arms", "Shoulders", "Chest", "Back", "Core"],
+        "EquipmentOptions": ["Jumprope"]
+    }
+]
+}
